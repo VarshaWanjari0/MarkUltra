@@ -13,6 +13,10 @@ import android.util.TypedValue;
 import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.widget.OverScroller;
+
 
 /**
  * Plain-text editor surface with an optional line-number gutter, a current-line
@@ -32,6 +36,10 @@ public class CodeEditor extends AppCompatEditText {
     }
 
     private PasteInterceptor pasteInterceptor;
+
+    private OverScroller scroller;
+    private GestureDetector gestureDetector;
+
 
     public void setPasteInterceptor(PasteInterceptor interceptor) {
         this.pasteInterceptor = interceptor;
@@ -123,6 +131,30 @@ public class CodeEditor extends AppCompatEditText {
         gutterPaint.setTypeface(Typeface.MONOSPACE);
         gutterPaint.setTextAlign(Paint.Align.RIGHT);
         highlightPaint.setStyle(Paint.Style.FILL);
+        scroller = new OverScroller(getContext());
+        gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                int maxX = softWrap ? 0 : getMaxScrollX();
+                int maxY = getMaxScrollY();
+                if (maxY <= 0 && maxX <= 0) return false;
+
+                int startX = Math.max(0, Math.min(maxX, getScrollX()));
+                int startY = Math.max(0, Math.min(maxY, getScrollY()));
+                int velX = softWrap ? 0 : (int) -velocityX;
+                int velY = (int) -velocityY;
+
+                scroller.fling(startX, startY, velX, velY, 0, maxX, 0, maxY);
+                postInvalidateOnAnimation();
+                return true;
+            }
+        });
+
         addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -325,4 +357,42 @@ public class CodeEditor extends AppCompatEditText {
     private float sp(float value) {
         return value * getResources().getDisplayMetrics().scaledDensity;
     }
+
+    public int getMaxScrollY() {
+        Layout layout = getLayout();
+        if (layout == null) return 0;
+        int visibleHeight = getHeight() - getTotalPaddingTop() - getTotalPaddingBottom();
+        return Math.max(0, layout.getHeight() - visibleHeight);
+    }
+
+    public int getMaxScrollX() {
+        int range = computeHorizontalScrollRange();
+        int visibleWidth = getWidth() - getTotalPaddingLeft() - getTotalPaddingRight();
+        return Math.max(0, range - visibleWidth);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            if (scroller != null && !scroller.isFinished()) {
+                scroller.abortAnimation();
+            }
+        }
+        boolean gestureHandled = false;
+        if (gestureDetector != null) {
+            gestureHandled = gestureDetector.onTouchEvent(event);
+        }
+        boolean superHandled = super.onTouchEvent(event);
+        return gestureHandled || superHandled;
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (scroller != null && scroller.computeScrollOffset()) {
+            scrollTo(scroller.getCurrX(), scroller.getCurrY());
+            postInvalidateOnAnimation();
+        }
+    }
+
 }
