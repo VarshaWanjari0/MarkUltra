@@ -139,32 +139,6 @@ MarkUltra relies on world-class open-source libraries. All JavaScript engines sh
 
 ---
 
-## 1. What is actually verified
-
-This project was **built**, not just written. Every number below came from running the
-real toolchain against these exact files during authoring (2026-10-29).
-
-| Step | Tool used | Result |
-|---|---|---|
-| Resource compile | `aapt2 compile --dir res` | **pass** — every XML file, plus 26 dependency resource sets |
-| Resource link | `aapt2 link` (47 dependency resource sets, auto-overlay) | **pass** — 7 190 symbols |
-| Java compile | `javac` against the API 33 runtime + all AAR `classes.jar` + generated library `R` classes | **pass** — **400 classes**, zero errors |
-| Dexing (app + libraries + flexmark) | `D8` 8.2.42, `--min-api 29`, 34 flexmark/jsoup jars + 41 androidx jars | **pass** — `classes.dex` 6.77 MB |
-| APK assembly | `resources.ap_` + `classes.dex` + `assets/` | **pass** — **4.78 MB** unsigned APK |
-| Manifest verification | `aapt2 dump badging` | **pass** — launchable `MainActivity`, versionCode 3 / versionName 1.5.0, `minSdk 29`, `targetSdk 34`, `INTERNET` only |
-| Maths render | headless Chromium on the bundled `assets/` files | **pass** — `docs/math.md`: 9/9 equations typeset (0 fallbacks, 0 console errors), 20 `@font-face` faces load from the APK, `\R` in blackboard bold, broken TeX stays visible, light and dark |
-| Renderer self-check | `tools/GfmSelfTest.java` on a plain JVM | **pass** — **191 assertions**, 0 failures (rendering, post-processing, sanitiser, text tools, paste conversion, templates, file codec, maths, bundled KaTeX assets) |
-| Real README | this project's own `README.md` | **28 481 → 41 519 characters of HTML in 22 ms**, no leaked `**`, `[ ]` or `\|---` |
-| Visual render | headless Chromium, 412 px, light + dark | **pass** — `docs/showcase.md`: 2 KaTeX nodes, 1 Mermaid SVG, 5 alerts, 4 task checkboxes, 1 table, all 4 remote images loaded; `docs/rich.md`: definition list, 2 admonitions, `<abbr>`, `<sup>`, `<ins>`, a wiki link, a video player, front matter hidden; zero console errors in both |
-| GitHub oracle | `POST api.github.com/markdown` with `mode=gfm`, element trees diffed | **pass** — re-run after the extension upgrade: **182/183 tag records identical in order and identical text** for `docs/showcase.md`, i.e. the same result as 1.3. MarkUltra+ syntax is off in this comparison, which is the point |
-| Sanitiser | part of the 191 checks | **pass** — `<script>`, `onerror`, `javascript:`, `<iframe>`, `<style>` all removed |
-
-Rendering throughput on this machine: `README.md` 28 481 chars → 41 519 chars of HTML in
-22 ms, `docs/showcase.md` 2 876 → 8 411 in 16 ms, a 1 442-char torture document in 12 ms.
-On a phone expect 2–4× that,
-which is why parsing runs on its own thread with generation-based cancellation and the
-live preview is debounced (140 ms, 420 ms above 120 000 characters).
-
 ## Build
 
 ### Android Studio / CLI (JDK 17 + SDK 34)
