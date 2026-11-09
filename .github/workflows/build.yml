@@ -39,4 +39,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create v1.7.5-debug app/build/outputs/apk/debug/app-debug.apk             --title "MarkUltra v1.7.5 (Debug Build)"             --notes "Automated GitHub Actions build of MarkUltra for Android. Contains app-debug.apk."             --clobber
+          gh release create v1.7.5-debug app/build/outputs/apk/debug/app-debug.apk             --title "MarkUltra v1.7.5 (Debug Build)"             --notes "Automated GitHub Actions build of MarkUltra for Android. Contains app-debug.apk." ||           gh release upload v1.7.5-debug app/build/outputs/apk/debug/app-debug.apk --clobber

@@ -45,4 +45,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create v1.7.5 app-release.apk             --title "MarkUltra v1.7.5"             --notes "Official release of MarkUltra v1.7.5 for Android. Bundles 100% offline KaTeX, Mermaid 10, Graphviz, PlantUML, and Vega."             --clobber
+          gh release create v1.7.5 app-release.apk             --title "MarkUltra v1.7.5"             --notes "Official release of MarkUltra v1.7.5 for Android. Bundles 100% offline KaTeX, Mermaid 10, Graphviz, PlantUML, and Vega." ||           gh release upload v1.7.5 app-release.apk --clobber
