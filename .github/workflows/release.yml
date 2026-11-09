@@ -1,13 +1,10 @@
-name: Build & Publish Release APK
+name: Build Release APK
 
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  build-and-publish-release:
+  build-release:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +26,6 @@ jobs:
         run: gradle :app:assembleRelease --stacktrace
 
       - name: Locate and Verify Release APK
-        id: locate_apk
         run: |
           ls -la app/build/outputs/apk/release/
           APK_FILE=$(find app/build/outputs/apk/release/ -name "*.apk" | head -n 1)
@@ -41,8 +37,9 @@ jobs:
           cp "$APK_FILE" app-release.apk
           ls -lh app-release.apk
 
-      - name: Create or Update GitHub Release v1.7.5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create v1.7.5 app-release.apk             --title "MarkUltra v1.7.5"             --notes "Official release of MarkUltra v1.7.5 for Android. Bundles 100% offline KaTeX, Mermaid 10, Graphviz, PlantUML, and Vega." ||           gh release upload v1.7.5 app-release.apk --clobber
+      - name: Upload Release APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: app-release.apk
+          if-no-files-found: error
