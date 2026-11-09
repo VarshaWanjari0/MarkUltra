@@ -1,0 +1,11 @@
+name: Feature Request
+description: Suggest an idea or enhancement for MarkUltra
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature Proposal
+      description: What would you like MarkUltra to support?
+    validations:
+      required: true

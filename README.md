@@ -1,4 +1,4 @@
-# MarkUltra
+# MarkUltra — Native Android Markdown Editor & Viewer
 
 [![Platform](https://img.shields.io/badge/Platform-Android%2010%2B%20(API%2029--34)-blue?logo=android)](https://developer.android.com)
 [![Language](https://img.shields.io/badge/Language-Java%208-orange?logo=openjdk)](https://openjdk.org)
@@ -32,15 +32,15 @@ Permissions  INTERNET (strictly for optional remote images; switchable off in Se
 
 | Dark Mode Preview | Light Mode Preview |
 |:---:|:---:|
-| ![Dark Mode Preview](docs/preview-dark.png) | ![Light Mode Preview](docs/preview-light.png) |
+| ![MarkUltra Android Markdown Editor Dark Mode Preview](docs/preview-dark.png) | ![MarkUltra Android Markdown Viewer Light Mode Preview](docs/preview-light.png) |
 
 | Mathematics & LaTeX | Diagrams & Engines |
 |:---:|:---:|
-| ![Math Rendering](docs/math-dark.png) | ![Diagram Engines](docs/engines-dark.png) |
+| ![Offline KaTeX LaTeX Math Rendering on Android](docs/math-dark.png) | ![Mermaid, PlantUML, Graphviz and Vega Diagram Engines on Android](docs/engines-dark.png) |
 
 | Chemistry (mhchem) | Full Editor Interface |
 |:---:|:---:|
-| ![Chemistry Rendering](docs/chemistry-dark.png) | ![Editor UI](docs/ui-dark.png) |
+| ![Chemical Reaction mhchem Typesetting on Android](docs/chemistry-dark.png) | ![MarkUltra Full Code Editor UI with Gutter](docs/ui-dark.png) |
 
 ---
 
@@ -299,6 +299,16 @@ Not supported: MDX/JSX and GitHub-only widgets (issue/PR prefill links). Relativ
 that point outside the open document's folder are refused rather than guessed.
 
 ---
+
+---
+
+## Why MarkUltra? (Feature Summary)
+
+* **1:1 GitHub Flavored Markdown (GFM):** Tables, task lists, alerts (`> [!NOTE]`), footnotes, emoji shortcodes (`:rocket:`), strikethrough, autolinks, and heading anchors.
+* **Offline LaTeX Math & Chemistry:** Typeset inline `$E=mc^2$` and block equations via KaTeX 0.16.9 + chemical formulas via `mhchem` (`\ce{2H2 + O2 -> 2H2O}`).
+* **Built-in Diagramming Engines:** Native rendering for Mermaid 10 (flowcharts, sequence, class, state diagrams, Gantt), Graphviz (DOT language via WebAssembly), PlantUML (TeaVM), and Vega/Vega-Lite data graphics.
+* **Interactive Preview-to-Source Bridge:** Tap checkboxes in preview to update markdown source; tap table headers to sort rows.
+* **Native Performance & Small Footprint:** Pure Java 8, zero Kotlin/Compose runtime bloat (~4.8 MB APK), smooth inertial fling scrolling, and 100% offline local asset loading via virtual origin `https://appassets.androidplatform.net/`.
 
 ## License
 
