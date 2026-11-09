@@ -1,4 +1,4 @@
-# MarkUltra 🚀
+# MarkUltra
 
 [![Platform](https://img.shields.io/badge/Platform-Android%2010%2B%20(API%2029--34)-blue?logo=android)](https://developer.android.com)
 [![Language](https://img.shields.io/badge/Language-Java%208-orange?logo=openjdk)](https://openjdk.org)
@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![APK Size](https://img.shields.io/badge/APK%20Size-~4.8%20MB-purple)](#dependency-budget)
 
-**MarkUltra** is an ultra-advanced, lightweight, and fully offline native Android Markdown editor and viewer engineered for **true 1:1 GitHub parity**. 
+**MarkUltra** is an lightweight, fully offline native Android Markdown editor and viewer built for 1:1 GitHub parity. 
 
 Unlike conventional mobile Markdown apps that rely on simplified `TextView` renderers or basic CommonMark wrappers, MarkUltra runs the reference **flexmark-java** pipeline feeding GitHub’s authentic `.markdown-body` stylesheet in a hardened, sandboxed Android WebView. It bundles offline WebAssembly and JavaScript engines for LaTeX mathematics, chemical notation, and multiple diagramming specifications—all running entirely on-device with zero network requests.
 
@@ -28,7 +28,7 @@ Permissions  INTERNET (strictly for optional remote images; switchable off in Se
 
 ---
 
-## 📸 Visual Showcase
+## Screenshots
 
 | Dark Mode Preview | Light Mode Preview |
 |:---:|:---:|
@@ -44,11 +44,11 @@ Permissions  INTERNET (strictly for optional remote images; switchable off in Se
 
 ---
 
-## 🏆 The Ultimate Markdown Stress Test Benchmark
+## Markdown Stress Test
 
 Included in this repository is [`markdown_viewer_stress_test_extended.md`](markdown_viewer_stress_test_extended.md), an exhaustive **63 KB, 40-section stress test suite** designed to push Markdown renderers to their absolute limits.
 
-Most mobile viewers fail, choke, or crash when handling mixed LaTeX, dynamic diagrams, wide nested tables, or malformed HTML blocks. **MarkUltra scores a 100% pass rate** across all 40 test suites with zero rendering errors:
+Tested against the full 40-section suite with 100% pass rate:
 
 * **26 Complex Tables:** Standard GFM tables, pipe-escaped rows, empty cells, wide scrolling tables, and Pandoc multiline/grid tables. Headers feature **interactive tap-to-sort** which sorts the data and re-writes the markdown source.
 * **16 Mermaid Diagrams:** Flowcharts, sequence diagrams, class models, state machines, and Gantt charts rendered 100% offline via Mermaid 10.9.1.
@@ -62,7 +62,7 @@ Most mobile viewers fail, choke, or crash when handling mixed LaTeX, dynamic dia
 
 ---
 
-## ✨ Key Highlights & Features
+## Features
 
 MarkUltra implements **282 distinct features**, documented in complete detail in [`FEATURES.md`](FEATURES.md).
 
@@ -86,7 +86,7 @@ MarkUltra implements **282 distinct features**, documented in complete detail in
 
 ---
 
-## 🛠️ Architecture & Engineering Innovations
+## Architecture
 
 ### Virtual Origin Asset Loading
 Android 11+ and modern WebView policies heavily restrict access to `file:///android_asset/` sub-resources. MarkUltra solves this by serving all bundled engines through a custom internal scheme handled by `shouldInterceptRequest`:
@@ -111,7 +111,7 @@ Verified against Chrome 74, 84, 90, and modern Chromium releases.
 
 ---
 
-## 📦 Third-Party Libraries & Credits
+## Third-Party Libraries
 
 MarkUltra relies on world-class open-source libraries. All JavaScript engines ship bundled offline inside the APK. Detailed license terms are available in [`NOTICE-third-party.md`](NOTICE-third-party.md).
 
@@ -180,105 +180,7 @@ live preview is debounced (140 ms, 420 ms above 120 000 characters).
 * Behaviour that needs a real IME (soft-keyboard auto-pair timing, gesture navigation) is
   implemented defensively but has not been exercised on a handset.
 
-## 2. Directory tree
-
-```
-MarkUltra/
-├── build.gradle                     Root build script (AGP 8.1.4)
-├── settings.gradle                  Repositories + module include
-├── gradle.properties                JVM/heap settings tuned for on-device builds
-├── gradle/
-│   └── wrapper/
-│       └── gradle-wrapper.properties
-├── README.md
-├── FEATURES.md                      implemented features, numbered
-├── docs/
-│   ├── showcase.md                  the document behind the preview images
-│   ├── rich.md                      the MarkUltra+ demo document
-│   ├── rich-light.png / rich-dark.png   its real renders
-│   ├── math.md                      the maths torture page
-│   ├── math-light.png / math-dark.png   its real renders (bundled KaTeX)
-│   ├── preview-light.png            rendered page, light (headless Chromium)
-│   ├── preview-dark.png             rendered page, dark
-│   ├── ui-light.png                 the whole screen, light
-│   └── ui-dark.png                  the whole screen, dark
-├── tools/
-│   └── GfmSelfTest.java             191 headless assertions: renderer, file codec, maths
-└── app/
-    ├── build.gradle                 App module (minSdk 29, targetSdk 34)
-    ├── proguard-rules.pro
-    └── src/main/
-        ├── AndroidManifest.xml
-        ├── java/com/markultra/editor/
-        │   ├── MainActivity.java            Editor/preview/file orchestration
-        │   ├── SettingsActivity.java        All preferences
-        │   ├── editor/
-        │   │   ├── CodeEditor.java          EditText + line gutter + typewriter
-        │   │   ├── MarkdownHighlighter.java Live syntax highlighting
-        │   │   ├── SmartEdit.java           Formatting + line operations
-        │   │   ├── SmartInput.java          Auto-pairs + list continuation
-        │   │   └── UndoManager.java         Snapshot undo/redo
-        │   ├── io/
-        │   │   ├── DocumentLoader.java      Opens documents across activity recreation
-        │   │   ├── FileController.java      SAF read/write, recents, drafts, typed errors
-        │   │   ├── TextFile.java            charset / BOM / EOL codec, size and binary guards
-        │   │   └── RelativeImage.java       README relative paths -> real bytes
-        │   ├── md/
-        │   │   ├── GfmHtml.java             flexmark config + GitHub post-processing
-        │   │   ├── GfmCss.java              github-markdown-css port (light + dark)
-        │   │   ├── CodeHighlight.java       fence highlighter (19 token classes)
-        │   │   ├── HtmlSanitize.java        white-list sanitiser for raw HTML
-        │   │   ├── MdTasks.java             task markers: find, count, toggle
-        │   │   ├── MdBlockParser.java       Block parser (used for analysis/TOC)
-        │   │   ├── PasteConvert.java        HTML -> Markdown, CSV/TSV -> table
-        │   │   ├── Templates.java           Nine document templates
-        │   │   ├── TextTools.java           Twenty-nine text operations
-        │   │   ├── Equations.java           26 maths snippets with real TeX
-        │   │   ├── MdInlineParser.java      Inline parser (plain text conversion)
-        │   │   ├── MdConvert.java           HTML / RTF / plain-text export
-        │   │   ├── MdStats.java             Word/character/read-time metrics
-        │   │   ├── MdToc.java               Outline + anchors
-        │   │   ├── MdLint.java              Document checks
-        │   │   ├── MdSearch.java            Find/replace engine
-        │   │   ├── MdTableData.java         Table model + CSV/sort
-        │   │   ├── MdBlock.java             AST node
-        │   │   ├── MdSpan.java              Inline span instruction
-        │   │   ├── MdEmoji.java             Shortcode table (plain-text export)
-        │   │   ├── MdMath.java              LaTeX -> Unicode (plain-text export)
-        │   │   └── InlineResult.java        Parser output
-        │   ├── prefs/
-        │   │   ├── Settings.java            Typed preference access
-        │   │   └── ThemeController.java     12 palettes, light/dark/AMOLED
-        │   ├── ui/
-        │   │   ├── Dialogs.java             Prompts, outline, stats, checks…
-        │   │   ├── MarkdownActions.java     Every editor command
-        │   │   ├── MathPreview.java         Live TeX field (KaTeX, bundled fonts)
-        │   │   ├── QuickPanel.java          Searchable list sheet (palette, blocks, tools)
-        │   │   ├── TableInsertDialog.java   Grid picker + CSV/TSV import
-        │   │   ├── TableGridView.java       Interactive drag grid
-        │   │   └── ColorSwatch.java         Accent swatch view
-        │   └── util/
-        │       └── UiUtil.java              Clipboard, intents, haptics, time
-        └── assets/
-            ├── katex.min.js             Maths renderer (bundled, offline)
-            ├── katex.css                Its stylesheet, pointed at assets/fonts/
-            ├── fonts/                   20 KaTeX WOFF2 faces (0.30 MB)
-            └── mermaid.min.js           Diagram renderer (bundled, offline)
-        └── res/
-            ├── layout/        activity_main, activity_settings, view_format_bar,
-            │                  view_find_bar, view_status_bar, dialog_table_picker,
-            │                  dialog_prompt, item_outline, item_recent
-            ├── menu/          menu_main.xml
-            ├── values/        colors, dimens, strings, themes
-            ├── values-night/  colors, themes
-            ├── drawable/      26 vector icons + shape/ripple backgrounds
-            ├── mipmap-anydpi-v26/  adaptive launcher icon
-            └── xml/           file_paths.xml (FileProvider)
-```
-
----
-
-## 🚀 Quick Build Guide
+## Build
 
 ### Android Studio / CLI (JDK 17 + SDK 34)
 ```bash
@@ -521,7 +423,7 @@ that point outside the open document's folder are refused rather than guessed.
 
 ---
 
-## 📜 Historical Changelog & Deep-Dive Evolution
+## Changelog
 
 <details>
 <summary><b>Click to expand full engineering history (v1.1 to v1.7.5)</b></summary>
@@ -1263,6 +1165,6 @@ screenshot (see *What is not verified*).
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
