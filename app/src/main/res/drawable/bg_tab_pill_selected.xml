@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Selected segment: a soft accent wash, not solid accent. The label is drawn in
+     the accent colour, so a solid fill would paint it invisible. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/mu_pill_selected" />
+    <corners android:radius="12dp" />
+</shape>

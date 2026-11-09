@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mu_accent">#FFA78BFA</color>
+    <color name="mu_on_accent">#FF141821</color>
+    <color name="mu_bg">#FF0E1116</color>
+    <color name="mu_surface">#FF151922</color>
+    <color name="mu_surface_alt">#FF1C222D</color>
+    <color name="mu_text">#FFE7EAF0</color>
+    <color name="mu_text_muted">#FF98A0AD</color>
+    <color name="mu_divider">#FF262C36</color>
+    <color name="mu_chip_bg">#FF1C222D</color>
+    <color name="mu_pill_selected">#33A78BFA</color>
+    <color name="mu_transparent">#00000000</color>
+    <color name="mu_ripple">#33FFFFFF</color>
+    <color name="mu_code_bg">#FF161A21</color>
+    <color name="mu_shadow">#00000000</color>
+    <color name="mu_border">#1FFFFFFF</color>
+    <color name="mu_border_strong">#33FFFFFF</color>
+    <color name="mu_chip_bg_pressed">#2E3238</color>
+    <color name="mu_overlay">#33FFFFFF</color>
+    <color name="mu_surface_elevated">#FF171B22</color>
+    <color name="mu_accent_soft">#26A78BFA</color>
+    <color name="mu_pressed">#14FFFFFF</color>
+</resources>

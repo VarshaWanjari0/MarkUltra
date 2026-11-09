@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mu_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mu_toolbar_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingEnd="12dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            style="@style/Widget.MarkUltra.IconButton"
+            android:contentDescription="@string/cd_close"
+            android:src="@drawable/ic_close" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="6dp"
+            android:text="@string/settings_title"
+            android:textColor="@color/mu_text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="40dp">
+
+            <!-- ===================== Appearance ===================== -->
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/settings_appearance" />
+
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_theme" />
+
+            <LinearLayout
+                android:id="@+id/theme_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_tabs_container"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/theme_system"
+                    style="@style/Widget.MarkUltra.TabPill"
+                    android:text="@string/settings_theme_system" />
+
+                <TextView
+                    android:id="@+id/theme_light"
+                    style="@style/Widget.MarkUltra.TabPill"
+                    android:text="@string/settings_theme_light" />
+
+                <TextView
+                    android:id="@+id/theme_dark"
+                    style="@style/Widget.MarkUltra.TabPill"
+                    android:text="@string/settings_theme_dark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_amoled" />
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_amoled_desc" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_amoled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="@string/settings_accent" />
+
+            <GridLayout
+                android:id="@+id/accent_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:columnCount="6" />
+
+            <!-- ===================== Typography ===================== -->
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/settings_typography" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_text_size" />
+
+                <TextView
+                    android:id="@+id/size_value"
+                    style="@style/TextAppearance.MarkUltra.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="16sp" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seek_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="12"
+                android:progress="4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_line_spacing" />
+
+                <TextView
+                    android:id="@+id/spacing_value"
+                    style="@style/TextAppearance.MarkUltra.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.2x" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seek_spacing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="10"
+                android:progress="2" />
+
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/settings_font" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_tabs_container"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/font_sans"
+                    style="@style/Widget.MarkUltra.TabPill"
+                    android:text="@string/settings_font_sans" />
+
+                <TextView
+                    android:id="@+id/font_serif"
+                    style="@style/Widget.MarkUltra.TabPill"
+                    android:text="@string/settings_font_serif" />
+
+                <TextView
+                    android:id="@+id/font_mono"
+                    style="@style/Widget.MarkUltra.TabPill"
+                    android:text="@string/settings_font_mono" />
+            </LinearLayout>
+
+            <!-- ===================== Editor ===================== -->
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/settings_editor" />
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_highlight" />
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_highlight_desc" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_highlight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_line_numbers" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_line_numbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_typewriter" />
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_typewriter_desc" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_typewriter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_autopair" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_autopair"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_autolists" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_autolists"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_autoindent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_autoindent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_spellcheck" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_spellcheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_softwrap" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_softwrap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_load_images" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_load_images"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_tab_width" />
+
+                <TextView
+                    android:id="@+id/tab_width_value"
+                    style="@style/TextAppearance.MarkUltra.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seek_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="2"
+                android:progress="1" />
+
+            <!-- ===================== Files ===================== -->
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/settings_files" />
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_autosave" />
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_autosave_desc" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_autosave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_autosave_delay" />
+
+                <TextView
+                    android:id="@+id/autosave_value"
+                    style="@style/TextAppearance.MarkUltra.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.5s" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seek_autosave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="9"
+                android:progress="4" />
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_keep_on" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_keep_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- ===================== Preview ===================== -->
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/settings_preview" />
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_preview_smart" />
+
+                    <TextView
+                        style="@style/TextAppearance.MarkUltra.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_preview_smart_desc" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_smart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_mono_code" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_mono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Widget.MarkUltra.SettingsRow">
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_scroll_sync" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_scroll_sync"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MarkUltra.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_toc_level" />
+
+                <TextView
+                    android:id="@+id/toc_level_value"
+                    style="@style/TextAppearance.MarkUltra.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seek_toc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="4"
+                android:progress="2" />
+
+            <!-- ===================== About ===================== -->
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/settings_about" />
+
+            <TextView
+                android:id="@+id/about_version"
+                style="@style/TextAppearance.MarkUltra.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_version" />
+
+            <TextView
+                style="@style/TextAppearance.MarkUltra.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/settings_offline" />
+
+            <TextView
+                android:id="@+id/reset_settings"
+                style="@style/Widget.MarkUltra.Chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="10dp"
+                android:text="@string/settings_reset" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

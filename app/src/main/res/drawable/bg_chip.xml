@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/mu_pressed">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/mu_chip_bg" />
+            <corners android:radius="@dimen/mu_chip_radius" />
+        </shape>
+    </item>
+</ripple>

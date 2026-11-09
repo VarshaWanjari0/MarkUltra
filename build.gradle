@@ -1,0 +1,6 @@
+// MarkUltra - root build script.
+// Only the Android Gradle Plugin is declared here; every application dependency
+// lives in app/build.gradle so the download footprint stays easy to audit.
+plugins {
+    id 'com.android.application' version '8.1.4' apply false
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Files exported for sharing live in the cache; nothing sensitive is exposed. -->
+    <cache-path
+        name="shared"
+        path="share/" />
+    <files-path
+        name="exports"
+        path="exports/" />
+</paths>

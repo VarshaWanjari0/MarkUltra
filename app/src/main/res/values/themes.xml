@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ============================================================
+         Base theme: everything shared by the light and dark variants.
+         values-night overrides only the status bar icon polarity.
+         ============================================================ -->
+    <style name="Base.Theme.MarkUltra" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/mu_accent</item>
+        <item name="colorPrimaryVariant">@color/mu_accent</item>
+        <item name="colorOnPrimary">@color/mu_on_accent</item>
+        <item name="colorSecondary">@color/mu_accent</item>
+        <item name="colorSecondaryVariant">@color/mu_accent</item>
+        <item name="colorOnSecondary">@color/mu_on_accent</item>
+        <item name="colorAccent">@color/mu_accent</item>
+        <item name="android:colorAccent">@color/mu_accent</item>
+        <item name="android:windowBackground">@color/mu_bg</item>
+        <item name="android:statusBarColor">@color/mu_bg</item>
+        <item name="android:navigationBarColor">@color/mu_bg</item>
+        <item name="android:textColorPrimary">@color/mu_text</item>
+        <item name="android:textColorSecondary">@color/mu_text_muted</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MarkUltra.Dialog</item>
+        <!-- the AppCompat counterpart, so a stock AlertDialog also gets a matching layout -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.MarkUltra.Dialog</item>
+    </style>
+
+    <style name="Theme.MarkUltra" parent="Base.Theme.MarkUltra">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+    <style name="Theme.MarkUltra.Splash" parent="Theme.MarkUltra">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
+    <style name="ThemeOverlay.MarkUltra.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/mu_accent</item>
+        <item name="android:textColorPrimary">@color/mu_text</item>
+    </style>
+
+    <!-- ============================ widgets ============================ -->
+
+    <style name="Widget.MarkUltra.Chip" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/mu_chip_height</item>
+        <item name="android:layout_marginEnd">@dimen/mu_chip_gap</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">@dimen/mu_chip_min_width</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:paddingLeft">11dp</item>
+        <item name="android:paddingRight">11dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/bg_chip</item>
+        <item name="android:textColor">@color/mu_text</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- Monospace chip for syntax-looking actions (code, table, link). -->
+    <style name="Widget.MarkUltra.Chip.Code" parent="Widget.MarkUltra.Chip">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- Icon-only chip used at the end of a group. -->
+    <style name="Widget.MarkUltra.Chip.Icon" parent="Widget.MarkUltra.Chip">
+        <item name="android:minWidth">@dimen/mu_chip_height</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+    </style>
+
+    <style name="Widget.MarkUltra.GroupDivider" parent="">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_marginStart">@dimen/mu_group_gap</item>
+        <item name="android:layout_marginEnd">@dimen/mu_group_gap</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/divider_vertical</item>
+    </style>
+
+    <style name="Widget.MarkUltra.TabPill" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/bg_tab_pill_selector</item>
+        <item name="android:textColor">@color/mu_text_muted</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.MarkUltra.IconButton" parent="">
+        <item name="android:layout_width">@dimen/mu_icon_button</item>
+        <item name="android:layout_height">@dimen/mu_icon_button</item>
+        <item name="android:layout_marginStart">1dp</item>
+        <item name="android:layout_marginEnd">1dp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">9dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="Widget.MarkUltra.SettingsRow" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="TextAppearance.MarkUltra.Section" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/mu_text_muted</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+    <style name="TextAppearance.MarkUltra.Body" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/mu_text</item>
+    </style>
+
+    <style name="TextAppearance.MarkUltra.Caption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/mu_text_muted</item>
+    </style>
+</resources>

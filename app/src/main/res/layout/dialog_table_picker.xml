@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/table_size_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mu_text"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:text="@string/dialog_table_title"
+            android:textColor="@color/mu_text_muted"
+            android:textSize="13sp" />
+
+        <com.markultra.editor.ui.TableGridView
+            android:id="@+id/table_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_table_alignment"
+                android:textColor="@color/mu_text_muted"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/align_none"
+                style="@style/Widget.MarkUltra.Chip"
+                android:layout_height="28dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/align_none"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/align_left"
+                style="@style/Widget.MarkUltra.Chip"
+                android:layout_height="28dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/align_left"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/align_center"
+                style="@style/Widget.MarkUltra.Chip"
+                android:layout_height="28dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/align_center"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/align_right"
+                style="@style/Widget.MarkUltra.Chip"
+                android:layout_height="28dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/align_right"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/table_headers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_chip"
+            android:hint="@string/dialog_table_headers"
+            android:inputType="text"
+            android:minHeight="46dp"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:textColor="@color/mu_text"
+            android:textColorHint="@color/mu_text_muted"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/table_paste"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_chip"
+            android:gravity="top|start"
+            android:hint="@string/dialog_table_import_hint"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:minHeight="58dp"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/mu_text"
+            android:textColorHint="@color/mu_text_muted"
+            android:textSize="13sp" />
+    </LinearLayout>
+</ScrollView>

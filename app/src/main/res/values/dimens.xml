@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- one 4 dp scale, used everywhere -->
+    <dimen name="mu_space_xs">4dp</dimen>
+    <dimen name="mu_space_s">8dp</dimen>
+    <dimen name="mu_space_m">12dp</dimen>
+    <dimen name="mu_space_l">16dp</dimen>
+    <dimen name="mu_space_xl">24dp</dimen>
+
+    <dimen name="mu_toolbar_height">52dp</dimen>
+    <dimen name="mu_format_bar_height">48dp</dimen>
+    <dimen name="mu_status_bar_height">28dp</dimen>
+    <dimen name="mu_tabs_height">34dp</dimen>
+
+    <dimen name="mu_icon_button">40dp</dimen>
+    <dimen name="mu_touch_target">48dp</dimen>
+    <dimen name="mu_chip_height">34dp</dimen>
+    <dimen name="mu_chip_min_width">34dp</dimen>
+    <dimen name="mu_chip_radius">9dp</dimen>
+    <dimen name="mu_chip_gap">6dp</dimen>
+    <dimen name="mu_group_gap">10dp</dimen>
+
+    <dimen name="mu_editor_padding">16dp</dimen>
+    <dimen name="mu_content_padding">18dp</dimen>
+    <dimen name="mu_corner">16dp</dimen>
+    <dimen name="mu_divider">1dp</dimen>
+</resources>

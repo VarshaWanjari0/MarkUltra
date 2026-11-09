@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Accent (overridden at runtime by ThemeController; XML values are the default) -->
+    <color name="mu_accent">#FF6C4CE0</color>
+    <color name="mu_on_accent">#FFFFFFFF</color>
+
+    <!-- Semantic colours: flipped by values-night/colors.xml -->
+    <color name="mu_bg">#FFFBFBFD</color>
+    <color name="mu_surface">#FFFFFFFF</color>
+    <color name="mu_surface_alt">#FFF1F3F7</color>
+    <color name="mu_text">#FF1A1D23</color>
+    <color name="mu_text_muted">#FF5F6673</color>
+    <color name="mu_divider">#FFE2E6EE</color>
+    <color name="mu_chip_bg">#FFF1F3F7</color>
+    <color name="mu_pill_selected">#1F6C4CE0</color>
+    <color name="mu_transparent">#00000000</color>
+    <color name="mu_ripple">#22000000</color>
+    <color name="mu_code_bg">#FFF3F5F9</color>
+    <color name="mu_shadow">#14000000</color>
+    <color name="mu_border">#14000000</color>
+    <color name="mu_border_strong">#24000000</color>
+    <color name="mu_chip_bg_pressed">#E6E8EB</color>
+    <color name="mu_overlay">#1F000000</color>
+    <color name="mu_surface_elevated">#FFFFFFFF</color>
+    <color name="mu_accent_soft">#146C4CE0</color>
+    <color name="mu_pressed">#0F000000</color>
+</resources>

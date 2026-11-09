@@ -1,0 +1,139 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.markultra.editor'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.markultra.editor"
+        minSdk 29
+        targetSdk 34
+        versionCode 10
+        versionName "1.7.5"
+        resourceConfigurations += ['en']
+        vectorDrawables.useSupportLibrary true
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ""
+        }
+        release {
+            // A local debug signature is used so `assembleRelease` succeeds on a
+            // device without a keystore. Replace with your own signingConfig.
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        buildConfig true
+        viewBinding false
+    }
+
+    androidResources {
+        // the preview page loads KaTeX and Mermaid straight from assets
+        noCompress += ['js']
+    }
+
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/*.kotlin_module', 'DebugProbesKt.bin',
+                         'META-INF/AL2.0', 'META-INF/LGPL2.1', 'META-INF/DEPENDENCIES']
+        }
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+/*
+ * Dependency budget (measured, transitive closure, AAR + JAR bytes):
+ *
+ *   com.google.android.material:material:1.9.0      2.10 MB
+ *   androidx.appcompat:appcompat:1.6.1              1.08 MB
+ *   androidx.core:core:1.9.0                        1.06 MB
+ *   androidx.fragment:fragment:1.5.4                0.32 MB
+ *   androidx.recyclerview:recyclerview:1.3.0        0.39 MB
+ *   androidx.transition / viewpager2 / cardview ... 0.30 MB
+ *   androidx.activity:activity:1.6.0                0.11 MB
+ *   presence/annotation/lifecycle/savedstate ...    0.90 MB
+ *   ------------------------------------------------------------------
+ *   TOTAL                                         ~6.3 MB
+ *
+ * Markdown parsing is flexmark-java (the reference CommonMark/GFM engine):
+ *
+ *   com.vladsch.flexmark:flexmark                  0.45 MB
+ *   flexmark-util-* (12 modules)                   0.66 MB
+ *   flexmark-ext-* (22 extensions, GFM +         ~0.85 MB
+ *     definition/admonition/wikilink/attributes/
+ *     abbreviation/aside/front-matter/superscript/
+ *     ins/media/users/issues/resizable/typographic)
+ *   flexmark-html2md-converter                     0.08 MB
+ *   org.jsoup:jsoup                                0.44 MB
+ *   org.nibor.autolink:autolink                    0.02 MB
+ *   ------------------------------------------------------------------
+ *   TOTAL                                         ~8.8 MB   (limit 20 MB)
+ *
+ * Rendering assets bundled with the app (not a download, but counted here so the
+ * size is never a surprise): KaTeX 0.28 MB + Mermaid 3.2 MB.
+ *
+ * No Compose, no Kotlin, no Markwon/CommonMark-android, no reflection based JSON,
+ * no image loading library.
+ */
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.activity:activity:1.6.0'
+    implementation 'com.google.android.material:material:1.9.0'
+
+    // A document that is being opened outlives the activity: the picker destroys and
+    // rebuilds the screen underneath it, and the ViewModel is what carries the result
+    // across. 40 KB, already a transitive dependency of appcompat, declared here because
+    // io/DocumentLoader depends on it directly.
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
+
+    // GitHub flavoured Markdown -> HTML. flexmark is the reference CommonMark/GFM
+    // implementation for the JVM: pure Java, no Kotlin, no Android dependency. The
+    // extensions below are split by what they do: the first block is exactly what
+    // github.com understands, the second is only parsed in MarkUltra+ mode.
+    implementation 'com.vladsch.flexmark:flexmark:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-tables:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-gfm-strikethrough:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-gfm-tasklist:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-autolink:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-footnotes:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-emoji:0.64.8'
+
+    // MarkUltra+ only: definition lists, admonitions, wiki links, attributes,
+    // abbreviations, asides, front matter, mentions, issue references, superscript,
+    // inserts and resizable images. Small (10-50 KB each) and pure Java.
+    implementation 'com.vladsch.flexmark:flexmark-ext-definition:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-admonition:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-wikilink:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-attributes:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-abbreviation:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-aside:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-yaml-front-matter:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-gfm-users:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-gfm-issues:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-superscript:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-ins:0.64.8'
+    implementation 'com.vladsch.flexmark:flexmark-ext-resizable-image:0.64.8'
+
+    // Paste rich HTML as Markdown, and the HTML parser it reads the clipboard with.
+    implementation 'com.vladsch.flexmark:flexmark-html2md-converter:0.64.8'
+    implementation 'org.jsoup:jsoup:1.15.4'
+}

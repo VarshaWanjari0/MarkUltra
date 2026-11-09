@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_file">
+        <item
+            android:id="@+id/action_new"
+            android:title="@string/menu_new" />
+        <item
+        android:id="@+id/action_save"
+        android:title="@string/menu_save" />
+    <item
+        android:id="@+id/action_file_actions"
+        android:title="@string/file_actions" />
+    <item
+            android:id="@+id/action_open"
+            android:title="@string/menu_open" />
+        <item
+            android:id="@+id/action_recent"
+            android:title="@string/menu_recent" />
+        <item
+            android:id="@+id/action_save_as"
+            android:title="@string/menu_save_as" />
+        <item
+            android:id="@+id/action_rename"
+            android:title="@string/menu_rename" />
+    </group>
+
+    <group android:id="@+id/group_export">
+        <item
+            android:id="@+id/action_export_html"
+            android:title="@string/menu_export_html" />
+        <item
+            android:id="@+id/action_export_txt"
+            android:title="@string/menu_export_txt" />
+        <item
+            android:id="@+id/action_export_rtf"
+            android:title="@string/menu_export_rtf" />
+        <item
+        android:id="@+id/action_export_pdf"
+        android:title="@string/menu_export_pdf" />
+    <item
+            android:id="@+id/action_share"
+            android:title="@string/menu_share" />
+        <item
+            android:id="@+id/action_share_file"
+            android:title="@string/menu_share_file" />
+        <item
+            android:id="@+id/action_copy_all"
+            android:title="@string/menu_copy_all" />
+    </group>
+
+    <group android:id="@+id/group_tools">
+        <item
+            android:id="@+id/action_find"
+            android:title="@string/menu_find" />
+        <item
+            android:id="@+id/action_goto"
+            android:title="@string/menu_goto" />
+        <item
+            android:id="@+id/action_outline"
+            android:title="@string/menu_outline" />
+        <item
+            android:id="@+id/action_issues"
+            android:title="@string/menu_issues" />
+        <item
+            android:id="@+id/action_stats"
+            android:title="@string/menu_stats" />
+        <item
+            android:id="@+id/action_toc"
+            android:title="@string/menu_insert_toc" />
+        <item
+        android:id="@+id/action_blocks"
+        android:title="@string/menu_blocks" />
+    <item
+        android:id="@+id/action_templates"
+        android:title="@string/menu_templates" />
+    <item
+        android:id="@+id/action_text_tools"
+        android:title="@string/menu_text_tools" />
+    <item
+        android:id="@+id/action_read_aloud"
+        android:title="@string/menu_read_aloud" />
+    <item
+            android:id="@+id/action_tidy"
+            android:title="@string/menu_tidy" />
+        <item
+            android:id="@+id/action_strip_ws"
+            android:title="@string/menu_strip_ws" />
+        <item
+            android:id="@+id/action_table"
+            android:title="@string/fmt_table" />
+        <item
+            android:id="@+id/action_insert_details"
+            android:title="@string/menu_insert_details" />
+        <item
+            android:id="@+id/action_insert_front_matter"
+            android:title="@string/menu_insert_front_matter" />
+        <item
+            android:id="@+id/action_insert_date"
+            android:title="@string/menu_insert_date" />
+    </group>
+
+    <group android:id="@+id/group_view">
+        <item
+            android:id="@+id/action_focus"
+            android:checkable="true"
+            android:title="@string/menu_focus" />
+        <item
+            android:id="@+id/action_wrap"
+            android:checkable="true"
+            android:title="@string/menu_word_wrap" />
+        <item
+            android:id="@+id/action_line_numbers"
+            android:checkable="true"
+            android:title="@string/menu_line_numbers" />
+        <item
+            android:id="@+id/action_typewriter"
+            android:checkable="true"
+            android:title="@string/menu_typewriter" />
+        <item
+            android:id="@+id/action_syntax"
+            android:checkable="true"
+            android:title="@string/menu_syntax" />
+        <item
+        android:id="@+id/action_rich"
+        android:checkable="true"
+        android:title="@string/menu_rich" />
+    <item
+        android:id="@+id/action_paste_rich"
+        android:checkable="true"
+        android:title="@string/menu_paste_rich" />
+    <item
+            android:id="@+id/action_amoled"
+            android:checkable="true"
+            android:title="@string/menu_amoled" />
+        <item
+            android:id="@+id/action_theme"
+            android:title="@string/menu_theme_dark" />
+        <item
+            android:id="@+id/action_scroll_sync"
+            android:checkable="true"
+            android:title="@string/menu_scroll_sync" />
+        <item
+            android:id="@+id/action_keep_on"
+            android:checkable="true"
+            android:title="@string/menu_keep_on" />
+    </group>
+
+    <group android:id="@+id/group_more">
+        <item
+        android:id="@+id/action_palette"
+        android:title="@string/menu_palette" />
+    <item
+            android:id="@+id/action_settings"
+            android:title="@string/menu_settings" />
+        <item
+            android:id="@+id/action_cheatsheet"
+            android:title="@string/menu_cheatsheet" />
+        <item
+            android:id="@+id/action_about"
+            android:title="@string/menu_about" />
+    </group>
+</menu>
