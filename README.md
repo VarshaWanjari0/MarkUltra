@@ -278,88 +278,20 @@ MarkUltra/
 
 ---
 
-## 3. Build
+## 🚀 Quick Build Guide
 
-### 3.1 Android Studio / command line (recommended)
-
+### Android Studio / CLI (JDK 17 + SDK 34)
 ```bash
-cd MarkUltra
-gradle wrapper --gradle-version 8.2     # one time: creates gradle-wrapper.jar
-./gradlew :app:assembleDebug
+./gradlew :app:assembleDebug     # Debug APK
+./gradlew :app:assembleRelease   # Release APK
 ```
 
-Requires JDK 17 (AGP 8.1.4 requirement) and Android SDK Platform 34.
+### On-Device with CodeAssist
+Import or open the folder directly in CodeAssist and tap **Run** (`debug` or `release`).
 
-> **Why `gradle wrapper` first?** `gradle-wrapper.jar` is a binary; it is regenerated
-> rather than checked in here so the archive stays text-only and virus-scanner friendly.
-
-### 3.2 On-device with CodeAssist (no Gradle involved)
-
-Current CodeAssist (v3.33.0) **does not run Gradle and has no JDK.** It is an
-on-device IDE built around its own incremental task engine: it compiles Java with
-Eclipse JDT/ecj in-process, dexes with D8/R8 in-process, signs with apksigner, and
-only shells out to a native `aapt2` binary. A full Gradle runtime is considered too
-heavy for a phone.
-
-It therefore opens this project through its **Gradle compatibility layer**: a
-tolerant, non-evaluating reader parses `settings.gradle`, `build.gradle`,
-`gradle.properties` and any version catalog, extracts the declarative shape
-(modules from `include`, the module type from the `plugins { }` block, the
-`android { }` SDK/namespace/build-types, and every `dependencies { }`
-declaration), maps that onto CodeAssist's native project model, and builds it with
-its own engine. Once synced, a Gradle-imported project and a native one are
-treated identically.
-
-What that means in practice:
-
-1. **Do not look for a Gradle daemon.** `gradle.properties`'s `org.gradle.jvmargs`
-   only takes effect if you build with real Gradle (Studio / CI); CodeAssist
-   ignores it.
-2. **Expect an amber "compat" chip** in the top bar, with a details banner listing
-   the reader's notes and a **Re-sync** button. That is normal, and the chip is how
-   you get back to the banner after dismissing it.
-3. **This project sits in the conventional declarative majority** the reader is
-   built for: one `include ':app'`, a plain `plugins { id 'com.android.application' }`,
-   scalar `namespace`/`compileSdk`/`minSdk`/`targetSdk`, standard `buildTypes`,
-   and three inline-coordinate `implementation` lines. Nothing here is computed.
-4. **The release block is the one thing to expect a note about.** It references
-   `signingConfigs.debug`, and CodeAssist keeps keystores in its own registry
-   rather than in the project, so a build type's signing config is reported instead
-   of guessed. CodeAssist signs the APK with its own key regardless — which is what
-   you want for installing on the same phone.
-5. **No `gradlew` needed.** If you cloned this repo, ignore the wrapper entirely on
-   device. If CodeAssist refuses to import for any reason, fall back to: create a
-   new Android app project in CodeAssist, then copy in `app/src/main/java`,
-   `app/src/main/res`, and `AndroidManifest.xml`, and add the three dependencies
-   through the IDE's Module Settings.
-
-### 3.2b If you are on an older CodeAssist (pre-3.27)
-
-Older builds *did* ship a Gradle distribution. If yours has a JDK and a Gradle
-runtime, the project builds unmodified with a JDK 17+, or with this pair on JDK 11:
-
-   ```groovy
-   // gradle/wrapper/gradle-wrapper.properties
-   distributionUrl=https\://services.gradle.org/distributions/gradle-7.5-bin.zip
-   ```
-
-   ```groovy
-   // build.gradle
-   id 'com.android.application' version '7.4.2' apply false
-   ```
-
-   ```groovy
-   // app/build.gradle  (AGP 7.x uses the manifest package, SDK 33)
-   android { compileSdk 33; defaultConfig { targetSdk 33 } }
-   ```
-
-   The source is Java 8 and uses no API newer than the declared `minSdk`, so nothing
-   else changes.
-
-### 3.3 First run
-
-The app opens a draft (or an empty document) in SPLIT view. On very first launch the
-built-in Markdown cheat sheet is shown, rendered by the app's own engine.
+### GitHub Actions CI
+* **Debug APK:** Automatically built and published to GitHub Releases on push.
+* **Release APK:** Can be triggered on demand via **Actions** → **Build & Publish Release APK**.
 
 ---
 
