@@ -165,21 +165,6 @@ On a phone expect 2–4× that,
 which is why parsing runs on its own thread with generation-based cancellation and the
 live preview is debounced (140 ms, 420 ms above 120 000 characters).
 
-### What is *not* verified, stated plainly
-
-* **No run on a physical device or emulator.** The sandbox has no Android runtime, so the
-  app was never launched against real hardware.
-* **No Android-runtime test harness in this tree.** The sandbox has no emulator, so there
-  is no Robolectric or instrumentation test in `app/src/test`: what is tested instead is
-  everything that does not need Android — the renderer (191 checks, including the exact
-  page the activity hands to the WebView) and the page itself (real headless Chromium).
-  JavaScript execution inside Android's WebView, KaTeX layout at phone densities and
-  Mermaid timing were therefore not observed on a handset.
-* **APK signing.** `apksigner` needs a JDK keytool that this sandbox does not provide, so
-  the assembled APK is unsigned. Gradle builds sign it as usual.
-* Behaviour that needs a real IME (soft-keyboard auto-pair timing, gesture navigation) is
-  implemented defensively but has not been exercised on a handset.
-
 ## Build
 
 ### Android Studio / CLI (JDK 17 + SDK 34)
