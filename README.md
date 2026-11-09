@@ -1,28 +1,23 @@
 # MarkUltra
 
-[![Platform](https://img.shields.io/badge/Platform-Android%2010%2B%20(API%2029--34)-blue?logo=android)](https://developer.android.com)
-[![Language](https://img.shields.io/badge/Language-Java%208-orange?logo=openjdk)](https://openjdk.org)
-[![Engine](https://img.shields.io/badge/Engine-flexmark--java%200.64.8-brightgreen)](https://github.com/vladsch/flexmark-java)
-[![Stylesheet](https://img.shields.io/badge/CSS-GitHub%20markdown--body-181717?logo=github)](https://github.com/sindresorhus/github-markdown-css)
-[![Offline](https://img.shields.io/badge/Assets-100%25%20Offline-success)](#bundled-offline-engines)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![APK Size](https://img.shields.io/badge/APK%20Size-~4.8%20MB-purple)](#dependency-budget)
+A Markdown editor and viewer for Android that renders **the way GitHub does**: the
+preview is flexmark-java's GitHub-flavoured pipeline feeding GitHub's own
+`.markdown-body` stylesheet in a WebView, with KaTeX, Mermaid, Graphviz, PlantUML,
+and Vega bundled offline.
 
-**MarkUltra** is an lightweight, fully offline native Android Markdown editor and viewer built for 1:1 GitHub parity. 
-
-Unlike conventional mobile Markdown apps that rely on simplified `TextView` renderers or basic CommonMark wrappers, MarkUltra runs the reference **flexmark-java** pipeline feeding GitHub’s authentic `.markdown-body` stylesheet in a hardened, sandboxed Android WebView. It bundles offline WebAssembly and JavaScript engines for LaTeX mathematics, chemical notation, and multiple diagramming specifications—all running entirely on-device with zero network requests.
+The editor itself is plain Java: custom highlighter, auto-pairing, undo, and SAF handling.
+No Compose, no Kotlin runtime overhead, no reflection, and **~4.8 MB** APK footprint.
 
 ```
 Package      com.markultra.editor
 minSdk       29  (Android 10)
 targetSdk    34  (Android 14)
 compileSdk   34
-Language     Java 8 source level (no Kotlin runtime overhead, no Compose)
+Language     Java 8 source level
 Engine       flexmark-java 0.64.8 (GFM) -> HTML -> WebView + GitHub stylesheet
-Assets       KaTeX + mhchem + fonts (0.61 MB), Mermaid 10 (3.2 MB), 
-             Graphviz / Viz.js WASM (1.38 MB), PlantUML / TeaVM (3.2 MB), Vega / Vega-Lite (0.73 MB)
-Footprint    ~4.78 MB APK (unminified assemble), ~3.4 MB release with R8
-Architecture 45 Java files, 18,699 lines + 855-line JVM test suite, 64 XML resources
+Assets       KaTeX + mhchem (0.61 MB), Mermaid 10 (3.2 MB), Graphviz / Viz.js (1.38 MB),
+             PlantUML (3.2 MB), Vega + Vega-Lite (0.73 MB)
+Source       45 Java files, 18,699 lines + 855-line test suite, 64 XML resources
 Permissions  INTERNET (strictly for optional remote images; switchable off in Settings)
 ```
 
@@ -44,98 +39,11 @@ Permissions  INTERNET (strictly for optional remote images; switchable off in Se
 
 ---
 
-## Markdown Stress Test
+## Stress Test Document
 
-Included in this repository is [`markdown_viewer_stress_test_extended.md`](markdown_viewer_stress_test_extended.md), an exhaustive **63 KB, 40-section stress test suite** designed to push Markdown renderers to their absolute limits.
+The included [`markdown_viewer_stress_test_extended.md`](markdown_viewer_stress_test_extended.md) (63 KB) tests CommonMark, GFM, LaTeX maths, chemistry, diagrams (Mermaid, PlantUML, Graphviz, Vega), tables with interactive column sorting, task list toggling, HTML sanitization, and edge cases.
 
-Tested against the full 40-section suite with 100% pass rate:
-
-* **26 Complex Tables:** Standard GFM tables, pipe-escaped rows, empty cells, wide scrolling tables, and Pandoc multiline/grid tables. Headers feature **interactive tap-to-sort** which sorts the data and re-writes the markdown source.
-* **16 Mermaid Diagrams:** Flowcharts, sequence diagrams, class models, state machines, and Gantt charts rendered 100% offline via Mermaid 10.9.1.
-* **Specialized Visualization Engines:** Native support for **Graphviz** (DOT language compiled to WebAssembly via Viz.js), **PlantUML** (compiled to JS via TeaVM), and **Vega / Vega-Lite** data visualizations.
-* **189 Task Checkboxes:** Interactive task lists (`- [ ]` / `- [x]`) that can be tapped directly inside the preview to mutate the underlying source file via a lightweight two-way JavaScript bridge.
-* **33 LaTeX Math Expressions & Chemistry:** Inline `$E=mc^2$` and block `$$\int_0^\infty e^{-x^2} dx$$`, Pandoc `{=tex}` and `\[ ... \]` delimiters powered by bundled KaTeX 0.16.9 and 20 bundled WOFF2 font files. Full chemical equation typesetting via bundled `mhchem` (`\ce{2H2 + O2 -> 2H2O}`).
-* **GitHub Admonition Alerts:** Authentic GitHub-styled alerts (`> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]`) with official GitHub SVG icons and color palettes.
-* **100 Syntax-Highlighted Code Blocks:** 19 distinct token classes across C, C++, Java, Kotlin, Rust, Go, Python, JavaScript, TypeScript, Bash, SQL, JSON, YAML, XML, HTML, CSS, Diff, and Regex—with a one-click copy button on every block.
-* **Strict HTML Sanitization:** Safe rendering of permissible HTML (`<details>`, `<summary>`, `<kbd>`, `<p align>`, inline SVG) while strictly neutralizing XSS threats (scripts, `onerror`, `javascript:` URIs).
-* **Robust Typography & Unicode:** Bidirectional text support (Arabic, Hebrew), full emoji shortcodes (`:rocket:` -> 🚀), definition lists, abbreviations, superscripts, subscripts, footnotes with back-links, and YAML front-matter metadata cards.
-
----
-
-## Features
-
-MarkUltra implements **282 distinct features**, documented in complete detail in [`FEATURES.md`](FEATURES.md).
-
-### 1. True 1:1 GitHub Parity
-* Powered by **flexmark-java 0.64.8**—the gold standard CommonMark/GFM engine on the JVM.
-* Uses GitHub's exact `.markdown-body` stylesheet with custom dynamic theme injection (Light, Dark, AMOLED, and 12 accent palettes).
-* Identical slugging algorithm (`github-slugger`), ensuring all `#heading` anchor links jump precisely where expected.
-
-### 2. Dual-Engine Architecture
-* **Live WebView Preview:** For authentic web-grade rendering with CSS styling, KaTeX, Mermaid, and JS bridge interactions.
-* **Pure-Java Native AST Engine:** Custom background lexer (`MdBlockParser`, `MdInlineParser`) for document outline, table of contents, text statistics, search/replace, linting, and export (RTF, HTML, Plain Text).
-
-### 3. Interactive Preview-to-Source Bridge
-* **Interactive Task Checkboxes:** Tap any checkbox in the preview pane; the JavaScript bridge dispatches `Android.toggleTask(index, checked)` which mutates the source text with byte-offset safety.
-* **Column Sorting:** Tap table headers to sort rows ascending/descending directly in the markdown source.
-* **Synchronized Scrolling:** Real-time synchronized scroll position between editor and preview in Split view mode.
-
-### 4. Zero Lag & Intelligent Debouncing
-* Typing throughput is decoupled from rendering via an adaptive preview debounce (140 ms default; 420 ms for documents above 120,000 characters).
-* Document statistics and syntax highlighting run off-thread or are capped above 300,000 characters to keep soft-keyboard typing butter-smooth.
-
----
-
-## Architecture
-
-### Virtual Origin Asset Loading
-Android 11+ and modern WebView policies heavily restrict access to `file:///android_asset/` sub-resources. MarkUltra solves this by serving all bundled engines through a custom internal scheme handled by `shouldInterceptRequest`:
-```
-https://appassets.androidplatform.net/assets/katex.min.js
-https://appassets.androidplatform.net/assets/mermaid.min.js
-https://appassets.androidplatform.net/assets/plantuml.js
-```
-This guarantees 100% offline access, same-origin compliance, and unblocked asset execution across all Android releases.
-
-### Universal ES5 Polyfills for Older WebViews
-Modern rendering bundles (Mermaid 10, Vega 5, PlantUML) require modern JavaScript features (`structuredClone`, `Object.hasOwn`, `WeakRef`, `String.prototype.replaceAll`). Older Android devices whose System WebView has not been updated would otherwise fail to load these engines. 
-
-MarkUltra injects defensive polyfills into the HTML `<head>` prior to script execution:
-```javascript
-// Polyfills loaded conditionally only if unsupported:
-structuredClone, Object.hasOwn, Object.fromEntries,
-String.prototype.replaceAll, Array.prototype.at, Array.prototype.flat,
-Promise.allSettled, queueMicrotask, WeakRef, FinalizationRegistry
-```
-Verified against Chrome 74, 84, 90, and modern Chromium releases.
-
----
-
-## Third-Party Libraries
-
-MarkUltra relies on world-class open-source libraries. All JavaScript engines ship bundled offline inside the APK. Detailed license terms are available in [`NOTICE-third-party.md`](NOTICE-third-party.md).
-
-### Bundled JavaScript & WebAssembly Assets
-
-| Library / Tool | Version | License | Role / Description |
-|---|---|---|---|
-| [**KaTeX**](https://katex.org) | 0.16.9 | MIT | High-speed offline TeX mathematical typesetting engine with bundled WOFF2 fonts |
-| [**mhchem for KaTeX**](https://github.com/mhchem/mhchem) | 0.16.9 | MIT | Extension for typesetting chemical formulae and reactions (`\ce{...}`) |
-| [**Mermaid**](https://mermaid.js.org) | 10.9.1 | MIT | Diagramming and charting tool (flowcharts, sequence, class, state diagrams) |
-| [**Viz.js (Graphviz)**](https://github.com/hpcc-systems/visualization) | @viz-js/viz | MIT / EPL-1.0 | Graphviz compiled to WebAssembly for rendering `dot` / `graphviz` blocks |
-| [**PlantUML**](https://plantuml.com) | 1.2026.9 | MIT | PlantUML compiled to JavaScript via [TeaVM](https://teavm.org) (`@plantuml/core`) |
-| [**Vega**](https://vega.github.io/vega/) | 5.x | BSD-3-Clause | Declarative visualization grammar |
-| [**Vega-Lite**](https://vega.github.io/vega-lite/) | 5.x | BSD-3-Clause | High-level grammar of interactive data graphics |
-
-### Java & Android Dependencies
-
-| Artifact | Version | License | Purpose |
-|---|---|---|---|
-| [**flexmark-java**](https://github.com/vladsch/flexmark-java) | 0.64.8 | BSD-2-Clause | Reference CommonMark / GFM parser and HTML renderer for the JVM + 18 extensions |
-| [**jsoup**](https://jsoup.org) | 1.15.4 | MIT | Robust HTML parser for clipboard paste conversion and HTML sanitization |
-| [**autolink-java**](https://github.com/robinst/autolink-java) | 0.11.0 | Apache-2.0 | High-efficiency link extraction for GitHub autolinks |
-| **AndroidX Core & AppCompat** | 1.6.1 | Apache-2.0 | Foundational Android backward-compatible runtime components |
-| **Google Material Components** | 1.9.0 | Apache-2.0 | Material Design UI widgets, dialogs, and navigation |
+Implemented features are catalogued in [`FEATURES.md`](FEATURES.md).
 
 ---
 
@@ -150,141 +58,12 @@ MarkUltra relies on world-class open-source libraries. All JavaScript engines sh
 ### On-Device with CodeAssist
 Import or open the folder directly in CodeAssist and tap **Run** (`debug` or `release`).
 
-### GitHub Actions CI
-* **Debug APK:** Automatically built and published to GitHub Releases on push.
-* **Release APK:** Can be triggered on demand via **Actions** → **Build & Publish Release APK**.
+### Prebuilt APKs
+Automated debug builds are generated on push and attached to [GitHub Releases](https://github.com/VarshaWanjari0/MarkUltra/releases).
 
 ---
 
-## 4. Dependency budget (measured)
-
-### 4.1 What the app downloads
-
-Three AndroidX dependencies plus the Markdown engine:
-
-```groovy
-implementation 'androidx.appcompat:appcompat:1.6.1'
-implementation 'androidx.activity:activity:1.6.0'
-implementation 'com.google.android.material:material:1.9.0'
-
-implementation 'com.vladsch.flexmark:flexmark:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-tables:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-gfm-strikethrough:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-gfm-tasklist:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-autolink:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-footnotes:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-emoji:0.64.8'
-
-// MarkUltra+ only
-implementation 'com.vladsch.flexmark:flexmark-ext-definition:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-admonition:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-wikilink:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-attributes:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-abbreviation:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-aside:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-yaml-front-matter:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-gfm-users:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-gfm-issues:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-superscript:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-ins:0.64.8'
-implementation 'com.vladsch.flexmark:flexmark-ext-resizable-image:0.64.8'
-
-// Paste rich HTML as Markdown
-implementation 'com.vladsch.flexmark:flexmark-html2md-converter:0.64.8'
-implementation 'org.jsoup:jsoup:1.15.4'
-```
-
-flexmark is the reference CommonMark/GFM implementation for the JVM: no Kotlin, no
-Android dependency, no reflection, and its nine `flexmark-util-*` runtime modules plus
-the extensions above come to **~2.3 MB** in total (measured on the jars).
-
-Their full transitive closure was resolved from the real POMs and every AAR/JAR was
-downloaded and measured:
-
-| Artifact | Size |
-|---|---|
-| `com.google.android.material:material:1.9.0` | 2.10 MB |
-| `org.jetbrains.kotlin:kotlin-stdlib:1.7.10` (transitive via `core-ktx`) | 1.45 MB |
-| `androidx.appcompat:appcompat:1.6.1` | 1.08 MB |
-| `androidx.core:core:1.9.0` | 1.06 MB |
-| `androidx.constraintlayout:constraintlayout:2.1.4` + `constraintlayout-core` | 0.87 MB |
-| `androidx.recyclerview:recyclerview` | 0.39 MB |
-| `androidx.fragment:fragment` | 0.32 MB |
-| 51 further small artifacts (lifecycle, savedstate, emoji2, transition, vectordrawable, asm-free) | ~2.7 MB |
-| `com.vladsch.flexmark` core + 12 `util` modules + 18 extensions | 1.55 MB |
-| `org.nibor.autolink:autolink:0.11.0` (flexmark's autolink backend) | 0.02 MB |
-| `org.jsoup:jsoup:1.15.4` (HTML parser behind the paste converter) | 0.44 MB |
-| **Total library closure (86 artifacts, worst case)** | **12.75 MB** |
-
-**Budget: 20 MB → 64% used in the worst case.**
-
-### 4.1b Bundled rendering assets
-
-Not downloads during a build (they are committed in `app/src/main/assets/`), counted
-here so the size of the app is never a surprise:
-
-| Asset | Size | When it loads |
-|---|---|---|
-| `katex.min.js` 0.16.9 | 0.28 MB | only when the document contains `$...$` or a ```math fence |
-| `mermaid.min.js` 10.9.1 | 3.32 MB | only when the document contains a ```mermaid fence |
-| **Total** | **3.60 MB** | |
-
-### 4.2 Optional saving: drop Kotlin (-1.9 MB)
-
-The app is pure Java and never executes Kotlin, but `appcompat` pulls `core-ktx`, which
-pulls `kotlin-stdlib`. Adding this to `app/build.gradle` removes ~1.9 MB and changes
-nothing at compile or run time (verified: no source references Kotlin or `core-ktx`):
-
-```groovy
-configurations.configureEach {
-    exclude group: 'org.jetbrains.kotlin'
-    exclude group: 'androidx.core', module: 'core-ktx'
-}
-```
-
-### 4.3 Build tooling (outside the library budget)
-
-| Component | Size | Note |
-|---|---|---|
-| Android Gradle Plugin 8.1.4 (`gradle-8.1.4.jar`) | 10.3 MB | downloaded once, shared by every project |
-| AAPT2 binary for the host | 2.1 MB | |
-| Gradle 8.2 distribution (`gradle-8.2-bin.zip`) | 122.7 MB | the Gradle runtime itself, shared by every project |
-
-Android Studio ships all three. On CodeAssist they are normally pre-installed; if it
-has to fetch them, that traffic happens once and is not part of the app's dependency
-footprint. If you must stay inside 20 MB for *everything including tooling*, build with
-CodeAssist's bundled Gradle rather than downloading a distribution.
-
-### 4.4 Measured output size
-
-| Output | Size |
-|---|---|
-| `classes.dex` (D8, minApi 29, 400 app classes + libraries + flexmark + jsoup) | 6.77 MB |
-| `resources.ap_` | 2.85 MB |
-| `assets/` (KaTeX + fonts + Mermaid) | 3.83 MB |
-| **APK as assembled here (unsigned, unminified)** | **4.78 MB** |
-| Expected release APK with R8 + resource shrinking | ~3.4 MB |
-
-The dex holds every dependency unminified. R8 strips the unused half of Material and
-AppCompat in a release build; the flexmark side stays roughly as is, because the parser
-is reachable code.
-
-### Deliberately avoided
-
-| Avoided | Why |
-|---|---|
-| Jetpack Compose | ~9 MB of compiler + runtime, slow on low-end devices |
-| Markwon / CommonMark-android | renders into TextViews with a subset of GFM: no real tables, no maths, no diagrams, no `<details>`, no GitHub CSS. Getting to 1:1 with github.com would mean writing what flexmark already does |
-| A custom renderer | this app had one (1 400 lines) and it could not reach parity: no real tables, ASCII maths, fake images. Replaced by flexmark + GitHub CSS |
-| WebView *without* a sanitiser | raw README HTML is attacker controlled; see `HtmlSanitize` for the allow-list that ships here |
-| Kotlin / coroutines | unnecessary for this codebase; removes ~1.9 MB |
-| Gson / Moshi / Room | prefs + `org.json` (platform) are enough |
-| Glide / Coil / OkHttp | the app never loads remote images |
-| ViewBinding / DataBinding | `findViewById` avoids annotation processing |
-
----
-
-## 5. Architecture
+## Architecture
 
 ```
 keystroke ──► SmartInput (auto-pair, list continuation)
@@ -328,7 +107,7 @@ page ──► JavaScript bridge (3 methods, nothing else)
 
 ---
 
-## 6. Markdown support
+## Markdown Support
 
 | Supported | Notes |
 |---|---|
@@ -364,7 +143,7 @@ that point outside the open document's folder are refused rather than guessed.
 
 ---
 
-## 7. Where to look first
+## Where to Look First
 
 | Task | File |
 |---|---|
@@ -379,6 +158,22 @@ that point outside the open document's folder are refused rather than guessed.
 | Change how files open or save | `io/FileController.java` + `io/TextFile.java`, then `MA.openUri` / `MA.saveDocument` |
 | Change how a document is opened (and keep it alive across recreation) | `io/DocumentLoader.java` |
 | Add a maths macro or an equation | `md/GfmHtml.MACROS`, `md/Equations.java` |
+
+---
+
+---
+
+## Third-Party Libraries
+
+All rendering engines run locally offline inside the APK. Detailed license terms are documented in [`NOTICE-third-party.md`](NOTICE-third-party.md).
+
+* **KaTeX & mhchem** (MIT) - Offline TeX maths and chemistry
+* **Mermaid** (MIT) - Flowcharts, sequence, class, state diagrams
+* **Viz.js / Graphviz** (MIT / EPL-1.0) - WebAssembly DOT rendering
+* **PlantUML** (MIT) - JavaScript PlantUML via TeaVM
+* **Vega & Vega-Lite** (BSD-3-Clause) - Data visualization
+* **flexmark-java** (BSD-2-Clause) - CommonMark / GFM parser and HTML renderer
+* **jsoup** (MIT) - HTML parsing for clipboard paste and sanitization
 
 ---
 
